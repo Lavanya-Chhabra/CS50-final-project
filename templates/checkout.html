@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+<div class="checkout-container">
+
+<h1 class="checkout-title">CHECKOUT</h1>
+
+<div class="checkout-layout">
+
+<!-- LEFT SIDE -->
+<div class="checkout-left">
+
+{% if addresses %}
+
+<h3 class="section-title">Saved Addresses</h3>
+
+<form action="{{ url_for('place_order') }}" method="POST">
+
+<div class="address-list">
+
+{% for addr in addresses %}
+<label class="address-card">
+
+<input type="radio" name="address_id" value="{{ addr['id'] }}" required>
+
+<div class="address-info">
+<strong>{{ addr['full_name'] }}</strong>
+<p>{{ addr['address'] }}</p>
+<p>{{ addr['city'] }} - {{ addr['pincode'] }}</p>
+<p>{{ addr['phone'] }}</p>
+</div>
+
+</label>
+{% endfor %}
+
+</div>
+
+<button type="submit" class="place-order-btn">
+PLACE ORDER
+</button>
+
+</form>
+
+<button type="button" id="showAddressForm" class="add-address-btn">
++ Add New Address
+</button>
+
+{% endif %}
+
+
+<!-- ADD ADDRESS FORM -->
+
+<form action="{{ url_for('checkout') }}" method="POST">
+
+<div id="newAddressForm" class="new-address-form {% if addresses %}hidden{% endif %}">
+
+<h3 class="section-title">Add Address</h3>
+
+<input type="text" name="full_name" placeholder="Full Name" required>
+
+<input type="text" name="phone" placeholder="Phone Number" required>
+
+<textarea name="address" placeholder="Full Address" required></textarea>
+
+<div class="form-row">
+
+<input type="text" name="city" placeholder="City" required>
+
+<input type="text" name="pincode" placeholder="Pincode" required>
+
+</div>
+
+<button type="submit" class="save-address-btn">
+SAVE ADDRESS
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+
+<!-- RIGHT SIDE -->
+<div class="checkout-summary">
+
+<h3>Order Summary</h3>
+
+{% for item in cart_items %}
+<div class="summary-item">
+
+<span>
+{{ item['name'] }} ({{ item['size'] }}) × {{ item['quantity'] }}
+</span>
+
+<span>
+{{ rs(item['price'] * item['quantity']) }}
+</span>
+
+</div>
+{% endfor %}
+
+<div class="summary-total">
+
+<span>Total</span>
+<span>{{ rs(subtotal) }}</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

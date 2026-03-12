@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+
+{% if not products %}
+
+<!-- ================= EMPTY CART ================= -->
+
+<div class="cart-empty-wrapper">
+    <div class="wishlist-empty">
+        <h2>YOUR CART IS EMPTY</h2>
+        <p>
+            Add items that you love to your cart.
+            Review them anytime and easily proceed to checkout.
+        </p>
+
+        <a href="{{ url_for('shop') }}" class="wishlist-btn-main">
+            CONTINUE SHOPPING
+        </a>
+    </div>
+</div>
+
+{% else %}
+
+<!-- ================= CART PAGE ================= -->
+
+<div class="cart-page">
+
+    <h1 class="cart-title">YOUR CART</h1>
+
+    <div class="cart-layout">
+
+        <!-- ================= LEFT SIDE ITEMS ================= -->
+        <div class="cart-items" >
+
+            {% for item in products %}
+                <div class="cart-card" data-link="{{ url_for('product_detail', id=item['product_id']) }}">
+
+                    <!-- PRODUCT IMAGE -->
+                    <img src="{{ url_for('static', filename=item['image_url']) }}">
+
+                    <!-- PRODUCT INFO -->
+                    <div class="cart-info">
+                        <h3>{{ item['name'] }}</h3>
+
+                        <!-- UPDATE FORM -->
+                        <form action="{{ url_for('update_cart', cart_id=item['cart_id']) }}"
+                            method="POST"
+                            class="update-form">
+
+                            <!-- SIZE SELECTOR -->
+                            <div class="size-wrapper">
+                                {% for size in ["XS","S","M","L","XL"] %}
+                                <label class="size-box">
+                                    <input type="radio"
+                                        name="size"
+                                        value="{{ size }}"
+                                        {% if item['size'] == size %}checked{% endif %}>
+                                    <span>{{ size }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+
+                            <!-- QUANTITY CONTROL -->
+                            <div class="qty-wrapper">
+                                <button type="button" class="qty-btn minus">−</button>
+
+                                <input type="number"
+                                    name="quantity"
+                                    value="{{ item['quantity'] }}"
+                                    min="1"
+                                    class="qty-input">
+
+                                <button type="button" class="qty-btn plus">+</button>
+                            </div>
+
+                            <button type="submit" class="update-btn">
+                                Update
+                            </button>
+
+                        </form>
+
+                        <!-- ITEM TOTAL -->
+                        <p class="cart-total">
+                            {{ rs(item['final_price'] * item['quantity']) }}
+                        </p>
+                    </div>
+
+                    <!-- REMOVE BUTTON -->
+                    <form action="{{ url_for('remove_from_cart', cart_id=item['cart_id']) }}"
+                        method="POST">
+                        <button type="submit" class="remove-btn">
+                            Remove
+                        </button>
+                    </form>
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- ================= ORDER SUMMARY ================= -->
+
+        <div class="cart-summary">
+
+            <h2>ORDER SUMMARY</h2>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>{{ rs(subtotal) }}</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span>{{ rs(subtotal) }}</span>
+            </div>
+
+            <form action="{{ url_for('checkout') }}" method="GET">
+                <button class="checkout-btn">
+                    PROCEED TO CHECKOUT
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

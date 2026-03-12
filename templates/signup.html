@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   Register
+{% endblock %}
+
+{% block content %}
+      <div class="login-container">
+        <div class="login-card">
+
+            <h2>Create an account</h2>
+
+            <form method="POST" action="/signup">
+
+                <div class="input-group">
+                    <label>Name<span>*</span></label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email<span>*</span></label>
+                    <input type="text" name="email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Phone No.<span>*</span></label>
+                    <input type="text" name="phone" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password<span>*</span></label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password<span>*</span></label>
+                    <input type="password" name="confirmation" required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    SIGN UP
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

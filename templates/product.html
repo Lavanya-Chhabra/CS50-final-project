@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% block title %}
+    Product
+{% endblock %}
+{% block content %}
+    <div class="product">
+        <div class="product-image">
+            {% for image in images %}
+                <img src="{{ url_for('static', filename=image['image_url']) }}">
+            {% endfor %}
+        </div>
+        <div class="product-about">
+            {% for p in product %}
+                <div class="product-title">
+                    <h3>{{ p['name'] }}</h3>
+                </div>
+                <div class="product-price">
+                    {% if product['sale_price'] %}
+                        <span class="product-old-price">{{ rs(p['price']) }}</span>
+                        <span class="product-new-price">{{ rs(p['sale_price']) }}</span>
+                    {% else %}
+                        <span class="product-new-price">{{ rs(p['price']) }}</span>
+                    {% endif %}
+                </div>
+                <div class="product-description">
+                    <p>{{ p['description'] }}</p>
+                </div>
+                <div class="product-review">
+                    <h2>Customer Reviews</h2>
+                    <div class="ratings">
+                        {% for i in range(1,6) %}
+                            {% if p['ratings'] >= i %}
+                                <i class="fa-solid fa-star"></i>
+
+                            {% elif p['ratings'] >= i - 0.5 %}
+                                <i class="fa-solid fa-star-half-stroke"></i>
+
+                            {% else %}
+                                <i class="fa-regular fa-star"></i>
+
+                            {% endif %}
+                        {% endfor %}
+
+                        <span>{{ p['ratings'] }}</span>
+                    </div>
+                </div>
+                <div class="product-options">
+                    <div class="option-block">
+                        <p class="option-title">Color</p>
+                        <p class="selected-text">{{ p['color'] }}</p>
+                        <div class="color-options">
+                            <label class="color-radio">
+                            <input type="radio" name="color" value="{{ p['color'] }}" checked>
+                            <span class="color-circle" style="--clr: {{ p['color'] | colorhex }}"></span>
+                            </label>
+                        </div>
+                        <br>
+                        <div class="option-block">
+                            <p class="option-title">Size</p>
+                            <div class="size-options">
+                                {% for size in sizes %}
+                                    <label class="size-radio">
+                                        <input type="radio" name="size" value="XS">
+                                        <span>{{ size }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-add">
+                            <form action="{{ url_for('toggle_wishlist', product_id=p['id']) }}" method="POST">
+                                <button type="submit" class="wishlist-btn">
+                                    {% if p['id'] in wishlist_ids %}
+                                        <i class="fa-solid fa-heart product-wishlist active"></i>
+                                    {% else %}
+                                        <i class="fa-regular fa-heart product-wishlist"></i>
+                                    {% endif %}
+                                </button>
+                            </form>
+                            <form action="{{ url_for('toggle_cart', product_id=p['id']) }}" method="POST">
+                                {% if p['id'] in cart_ids %}
+                                    <button id="product-add-button"class="add-cart-added">Added ✓</button>
+                                {% else %}
+                                    <button id="product-add-button"class="add-cart">Add to Cart</button>
+                                {% endif %}
+                            </form>
+                    </div>
+                    <div class="product-info">
+                        <p class="info-section-title">Product Details</p>
+                        <div class="product-details">
+                            <div class="detail-item">
+                            <p class="label">Style</p>
+                            <p class="value">{{ p['style'] }}</p>
+                            </div>
+                            <div class="detail-item">
+                            <p class="label">Fit</p>
+                            <p class="value">{{ p['fit'] }}</p>
+                            </div>
+                            <div class="detail-item">
+                            <p class="label">Fabric</p>
+                            <p class="value">{{ p['fabric'] }}</p>
+                            </div>
+                            <div class="detail-item">
+                            <p class="label">Color</p>
+                            <p class="value">{{ p['color'] }}</p>
+                            </div>
+                            <div class="detail-item">
+                            <p class="label">Stretchability</p>
+                            <p class="value">{{ p['strechability'] }}</p>
+                            </div>
+                            <div class="detail-item">
+                            <p class="label">Length</p>
+                            <p class="value">{{ p['length'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-features">
+                        <div class="feature">
+                            <span class="icon"><i class="fa-solid fa-scissors"></i></span>
+                            <p>Made to<br>Order</p>
+                        </div>
+                        <div class="feature">
+                            <span class="icon"><i class="fa-solid fa-truck"></i></span>
+                            <p>Free<br>Shipping</p>
+                        </div>
+                        <div class="feature">
+                            <span class="icon"><i class="fa-solid fa-rotate-left"></i></span>
+                            <p>Easy<br>Returns</p>
+                        </div>
+                        <div class="feature">
+                            <span class="icon"><i class="fa-solid fa-wallet"></i></span>
+                            <p>COD<br>Available</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

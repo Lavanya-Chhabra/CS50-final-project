@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   Dresses
+{% endblock %}
+
+{% block content %}
+   <div class="dresses">
+      <h1 class="shop-title">DRESSES</h1>
+      <div class="item-cards">
+         {%  for product in products %}
+                <div class="item-card" data-link="{{ url_for('product_detail', id=product['id']) }}">
+                <div class="card-img">
+                    <img src="{{ url_for('static', filename=product['image_url']) }}">
+                    <form action="{{ url_for('toggle_wishlist', product_id=product['id']) }}" method="POST">
+                        <button type="submit" class="wishlist-btn">
+                            {% if product['id'] in wishlist_ids %}
+                                <i class="fa-solid fa-heart wishlist active"></i>
+                            {% else %}
+                                <i class="fa-regular fa-heart wishlist"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                    <span class="price-tag">
+                        {% if product['sale_price'] %}
+                            <span class="old-price">{{ rs(product['price']) }}</span>
+                            <span class="new-price">{{ rs(product['sale_price']) }}</span>
+                        {% else %}
+                            <span class="new-price">{{ rs(product['price']) }}</span>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="card-info">
+                    <h5>{{ product['name'] }}</h5>
+                    <form action="{{ url_for('toggle_cart', product_id=product['id']) }}" method="POST">
+                        {% if product['id'] in cart_ids %}
+                            <button class="add-cart-added">Added ✓</button>
+                        {% else %}
+                            <button class="add-cart">Add to Cart</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+         {% endfor %}
+      </div>
+   </div>
+{% endblock %}

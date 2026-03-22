@@ -1,5 +1,5 @@
 # YOUR PROJECT TITLE
-#### Video Demo:  <URL HERE>
+#### Video Demo:  [Watch Demo](https://youtu.be/K7wgCfASxP0)
 #### Description:
 Evara is a full-stack e-commerce web application developed as a final project for CS50. The primary goal of this project is to design and implement a user-friendly and responsive online shopping platform that demonstrates core web development concepts and practical application of programming skills. The website allows users to interact with products, manage their accounts, and simulate a real-world online shopping experience.
 

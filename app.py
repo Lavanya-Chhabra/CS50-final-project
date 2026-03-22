@@ -151,7 +151,7 @@ def shop():
 @app.route("/dresses")
 def dresses():
     with get_db_connection() as conn:
-        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND products.category_id = 1 RANDOM() LIMIT 9").fetchall()
+        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND p.category_id = 1 ORDER BY RANDOM() LIMIT 9").fetchall()
         wishlist_ids = []
         if 'user_id' in session:
             rows = conn.execute("SELECT product_id FROM wishlist WHERE user_id = ?",(session['user_id'],)).fetchall()
@@ -167,7 +167,7 @@ def dresses():
 @app.route("/coord-sets")
 def coord():
     with get_db_connection() as conn:
-        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND products.category_id = 2 RANDOM() LIMIT 6").fetchall()
+        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND p.category_id = 2 ORDER BY RANDOM() LIMIT 6").fetchall()
 
         wishlist_ids = []
         if 'user_id' in session:
@@ -184,7 +184,7 @@ def coord():
 @app.route("/jeans")
 def jeans():
     with get_db_connection() as conn:
-        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND products.category_id = 3 RANDOM() LIMIT 6").fetchall()
+        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND p.category_id = 3 ORDER BY RANDOM() LIMIT 6").fetchall()
 
         wishlist_ids = []
         if 'user_id' in session:
@@ -201,7 +201,7 @@ def jeans():
 @app.route("/tops")
 def tops():
     with get_db_connection() as conn:
-        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND products.category_id = 4 RANDOM() LIMIT 6").fetchall()
+        products = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url FROM products AS p JOIN product_images AS pi ON pi.product_id = p.id WHERE pi.type = 'f' AND p.category_id = 4 ORDER BY RANDOM() LIMIT 6").fetchall()
 
         wishlist_ids = []
         if 'user_id' in session:
@@ -218,7 +218,7 @@ def tops():
 @app.route('/product/<int:id>')
 def product_detail(id):
     with get_db_connection() as conn:
-        product = conn.execute("SELECT p.name, p.description, p.price, p.sale_price, pd.style, pd.fit, pd.color, pd.fabric, pd.strechability, pd.fabric, pd.length, pd.ratings FROM products AS p JOIN product_details AS pd ON pd.product_id = p.id WHERE p.id = ? LIMIT 1", (id,)).fetchall()
+        product = conn.execute("SELECT p.id, p.name, p.description, p.price, p.sale_price, pd.style, pd.fit, pd.color, pd.fabric, pd.strechability, pd.fabric, pd.length, pd.ratings FROM products AS p JOIN product_details AS pd ON pd.product_id = p.id WHERE p.id = ? LIMIT 1", (id,)).fetchall()
         images = conn.execute("SELECT image_url FROM product_images WHERE product_id = ? ORDER BY id", (id,)).fetchall()
         sizes = ['XS', 'S', 'M', 'L', 'XL']
 
@@ -273,7 +273,7 @@ def order_detail(order_id):
         return redirect("/login")
 
     with get_db_connection() as conn:
-        items = conn.execute("SELECT p.name, p.price, pi.image_url, oi.quantity FROM order_items AS oi JOIN products AS P ON p.id = oi.product_id JOIN product_images AS pi ON pi.product_id = p.id WHERE oi.order_id = ? AND pi.type='f'"(order_id,)).fetchall()
+        items = conn.execute("SELECT p.id, p.name, p.price, p.sale_price, pi.image_url, oi.order_id, oi.quantity FROM order_items AS oi JOIN products AS P ON p.id = oi.product_id JOIN product_images AS pi ON pi.product_id = p.id WHERE oi.order_id = ? AND pi.type='f'",(order_id,)).fetchall()
 
     grand_total = sum(item["price"] * item["quantity"] for item in items)
 

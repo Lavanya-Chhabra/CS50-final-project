@@ -1416,6 +1416,125 @@ text-decoration:none;
 color:#555;
 }
 
+/* 📱 Responsive Design */
+
+@media (max-width: 768px){
+
+    .dashboard-container{
+        padding:40px 15px;
+    }
+
+    .dashboard-title{
+        font-size:26px;
+    }
+
+    .dashboard-header{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:10px;
+    }
+
+    .profile-circle{
+        width:50px;
+        height:50px;
+        font-size:20px;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+
+    .dashboard-card{
+        padding:20px;
+    }
+
+    .orders-table thead{
+        display:none;
+    }
+
+    .orders-table,
+    .orders-table tbody,
+    .orders-table tr,
+    .orders-table td{
+        display:block;
+        width:100%;
+    }
+
+    .orders-table tr{
+        background:white;
+        margin-bottom:15px;
+        padding:15px;
+        border-radius:10px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .orders-table td{
+        text-align:right;
+        padding:10px;
+        position:relative;
+    }
+
+    .orders-table td::before{
+        content: attr(data-label);
+        position:absolute;
+        left:10px;
+        font-weight:600;
+        color:#555;
+        text-align:left;
+    }
+
+    .order-items-table thead{
+        display:none;
+    }
+
+    .order-items-table,
+    .order-items-table tbody,
+    .order-items-table tr,
+    .order-items-table td{
+        display:block;
+        width:100%;
+    }
+
+    .order-items-table tr{
+        background:white;
+        margin-bottom:15px;
+        padding:15px;
+        border-radius:10px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .order-items-table td{
+        text-align:right;
+        padding:10px;
+        position:relative;
+    }
+
+    .order-items-table td::before{
+        content: attr(data-label);
+        position:absolute;
+        left:10px;
+        font-weight:600;
+        color:#555;
+        text-align:left;
+    }
+
+    .product-cell{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .product-img{
+        width:50px;
+    }
+
+    .order-total{
+        text-align:center;
+    }
+
+
+}
 
 /* CART PAGE */
 

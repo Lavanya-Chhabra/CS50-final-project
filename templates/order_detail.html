@@ -26,19 +26,28 @@
 
 <tr>
 
-<td class="product-cell">
-
-<img src="{{ url_for('static', filename=item['image_url']) }}" class="product-img">
-
-<span>{{ item['name'] }}</span>
-
+    <td data-label="Product" class="product-cell">
+    <img src="{{ url_for('static', filename=item['image_url']) }}" class="product-img">
+    <span>{{ item['name'] }}</span>
 </td>
 
-<td>{{ rs(item['price']) }}</td>
+<td data-label="Price">
+    {% if item['sale_price'] %}
+        {{ rs(item['sale_price']) }}
+    {% else %}
+        {{ rs(item['price']) }}
+    {% endif %}
+</td>
 
-<td>{{ item['quantity'] }}</td>
+<td data-label="Quantity">{{ item['quantity'] }}</td>
 
-<td>{{ rs(item['price'] * item['quantity']) }}</td>
+<td data-label="Total">
+    {% if item['sale_price'] %}
+        {{ rs(item['sale_price'] * item['quantity']) }}
+    {% else %}
+        {{ rs(item['price'] * item['quantity']) }}
+    {% endif %}
+</td>
 
 </tr>
 

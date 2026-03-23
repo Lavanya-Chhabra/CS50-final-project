@@ -1416,6 +1416,10 @@ text-decoration:none;
 color:#555;
 }
 
+.clickable-row {
+  cursor: pointer;
+}
+
 /* 📱 Responsive Design */
 
 @media (max-width: 768px){

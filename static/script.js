@@ -213,3 +213,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const rows = document.querySelectorAll(".clickable-row");
+
+  rows.forEach(row => {
+    row.addEventListener("click", function () {
+      const link = this.dataset.link;
+      if (link) {
+        window.location.href = link;
+      }
+    });
+  });
+});

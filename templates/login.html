@@ -1,38 +1,29 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block title %} Login {% endblock %} {% block
+content %}
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
 
-{% block title %}
-   Login
-{% endblock %}
+    <form method="POST" action="/login">
+      <div class="input-group">
+        <label>Email or Phone<span>*</span></label>
+        <input type="text" name="identifier" />
+      </div>
 
-{% block content %}
-    <div class="login-container">
-        <div class="login-card">
+      <div class="input-group">
+        <label>Password<span>*</span></label>
+        <input type="password" name="password" />
+      </div>
 
-            <h2>Login</h2>
+      <button type="submit" class="login-btn">SIGN IN</button>
+    </form>
 
-            <form method="POST" action="/login">
-
-                <div class="input-group">
-                    <label>Email or Phone<span>*</span></label>
-                    <input type="text" name="identifier">
-                </div>
-
-                <div class="input-group">
-                    <label>Password<span>*</span></label>
-                    <input type="password" name="password">
-                </div>
-
-                <button type="submit" class="login-btn">
-                    SIGN IN
-                </button>
-
-            </form>
-
-            <div class="extra-links">
-                <p class="extra"><a href="#">Forgot password?</a></p>
-                <p class="extra">Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
-            </div>
-
-        </div>
+    <div class="extra-links">
+      <p class="extra"><a href="#">Forgot password?</a></p>
+      <p class="extra">
+        Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a>
+      </p>
     </div>
+  </div>
+</div>
 {% endblock %}

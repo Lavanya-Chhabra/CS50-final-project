@@ -1,115 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <title>{% block title %} {% endblock %}</title>
-    </head>
-    <body>
-        <!-- NAVBAR -->
-        <header class="header">
-            <nav class="header-nav">
-                <div class="nav-left">
-                    <div class="header-logo">
-                        <img src="{{ url_for('static', filename='images/logo.png') }}">
-                    </div>
-                    <!-- Hamburger Menu Icon -->
-                    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-                <div class="header-links" id="headerLinks">
-                    <a href="{{ url_for('home') }}">HOME</a>
-                    <div class="nav-dropdown">
-                        <a href="{{ url_for('shop') }}" class="nav-link">SHOP <i class="fa-solid fa-angle-down"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="{{ url_for('dresses') }}">Dresses</a>
-                            <a href="{{ url_for('coord') }}">Co-ord Sets</a>
-                            <a href="{{ url_for('jeans') }}">Jeans</a>
-                            <a href="{{ url_for('tops') }}">Tops</a>
-                        </div>
-                    </div>
-                    <a href="#footer">CONTACT US</a>
-                </div>
-                <div class="header-icons">
-                    <div class="header-search-box">
-                        <input type="text" class="header-search-box-input" placeholder="Search...">
-                    </div>
-                    <label class="header-search-icon">
-                        <i class="fa-solid fa-magnifying-glass header-search-icon"></i>
-                    </label>
-                    <a href="{{ url_for('dashboard') }}"><i class="fa-regular fa-user" id="userIcon"></i></a>
-                    <a href="{{ url_for('wishlist') }}"><i class="fa-regular fa-heart" id="wishlistIcon"></i></a>
-                    <a href="{{ url_for('cart') }}"><i class="fa-solid fa-bag-shopping" id="cartIcon"></i></a>
-                </div>
-            </nav>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <div class="flash-overlay">
-                        {% for category, message in messages %}
-                            <div class="flash-message {{ category }}">
-                                {{ message }}
-                                <span class="close-flash">&times;</span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
-        </header>
-
-        <main>
-            {% block content %}
-            {% endblock %}
-        </main>
-
-        <footer id="footer">
-            <div class="footer-container">
-                <!-- ABOUT -->
-                <div class="footer-col">
-                    <h2 class="footer-logo">ÉVARA</h2>
-                    <p class="footer-about">
-                        ÉVARA is a modern fashion label crafted for confident women.
-                        Timeless silhouettes, premium fabrics, and effortless elegance —
-                        designed to elevate everyday style.
-                    </p>
-                </div>
-                <!-- QUICK LINKS -->
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="{{ url_for('shop') }}">Shop</a></li>
-                        <li><a href="#sale">Sale</a></li>
-                        <li><a href="#collection">Our Collection</a></li>
-                    </ul>
-                </div>
-                <!-- CONTACT -->
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <p>Email: support@evara.com</p>
-                    <p>Phone: +91 98765 43210</p>
-                    <p>Mon – Sat | 10AM – 7PM</p>
-                    </div>
-                    <!-- SOCIAL -->
-                    <div class="footer-col">
-                    <h4>Follow Us</h4>
-                    <div class="footer-socials">
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                    </div>
-                </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <header class="header">
+      <nav class="header-nav">
+        <div class="nav-left">
+          <div class="header-logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" />
+          </div>
+          <!-- Hamburger Menu Icon -->
+          <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+        <div class="header-links" id="headerLinks">
+          <a href="{{ url_for('home') }}">HOME</a>
+          <div class="nav-dropdown">
+            <a href="{{ url_for('shop') }}" class="nav-link"
+              >SHOP <i class="fa-solid fa-angle-down"></i
+            ></a>
+            <div class="dropdown-menu">
+              <a href="{{ url_for('dresses') }}">Dresses</a>
+              <a href="{{ url_for('coord') }}">Co-ord Sets</a>
+              <a href="{{ url_for('jeans') }}">Jeans</a>
+              <a href="{{ url_for('tops') }}">Tops</a>
             </div>
-            <!-- BOTTOM -->
-            <div class="footer-bottom">
-                <p>© 2026 ÉVARA. All Rights</p>
-            </div>
-        </footer>
+          </div>
+          <a href="#footer">CONTACT US</a>
+        </div>
+        <div class="header-icons">
+          <div class="header-search-box">
+            <input
+              type="text"
+              class="header-search-box-input"
+              placeholder="Search..."
+            />
+          </div>
+          <label class="header-search-icon">
+            <i class="fa-solid fa-magnifying-glass header-search-icon"></i>
+          </label>
+          <a href="{{ url_for('dashboard') }}"
+            ><i class="fa-regular fa-user" id="userIcon"></i
+          ></a>
+          <a href="{{ url_for('wishlist') }}"
+            ><i class="fa-regular fa-heart" id="wishlistIcon"></i
+          ></a>
+          <a href="{{ url_for('cart') }}"
+            ><i class="fa-solid fa-bag-shopping" id="cartIcon"></i
+          ></a>
+        </div>
+      </nav>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="flash-overlay">
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+          {{ message }}
+          <span class="close-flash">&times;</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+    </header>
 
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <main>{% block content %} {% endblock %}</main>
 
-    </body>
+    <footer id="footer">
+      <div class="footer-container">
+        <!-- ABOUT -->
+        <div class="footer-col">
+          <h2 class="footer-logo">ÉVARA</h2>
+          <p class="footer-about">
+            ÉVARA is a modern fashion label crafted for confident women.
+            Timeless silhouettes, premium fabrics, and effortless elegance —
+            designed to elevate everyday style.
+          </p>
+        </div>
+        <!-- QUICK LINKS -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="{{ url_for('shop') }}">Shop</a></li>
+            <li><a href="#sale">Sale</a></li>
+            <li><a href="#collection">Our Collection</a></li>
+          </ul>
+        </div>
+        <!-- CONTACT -->
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p>Email: support@evara.com</p>
+          <p>Phone: +91 98765 43210</p>
+          <p>Mon – Sat | 10AM – 7PM</p>
+        </div>
+        <!-- SOCIAL -->
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+          </div>
+        </div>
+      </div>
+      <!-- BOTTOM -->
+      <div class="footer-bottom">
+        <p>© 2026 ÉVARA. All Rights</p>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
 </html>

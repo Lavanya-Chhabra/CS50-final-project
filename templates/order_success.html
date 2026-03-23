@@ -1,19 +1,14 @@
-{% extends "layout.html" %}
-
-{% block title %}Order Success{% endblock %}
-
-{% block content %}
+{% extends "layout.html" %} {% block title %}Order Success{% endblock %} {%
+block content %}
 
 <div class="order-success">
+  <h1>ORDER PLACED SUCCESSFULLY</h1>
 
-<h1>ORDER PLACED SUCCESSFULLY</h1>
-
-<p>Your Order ID: <strong>#{{ order_id }}</strong></p>
-<br>
-<a href="{{ url_for('home') }}" class="wishlist-btn-main">
-Continue Shopping
-</a>
-
+  <p>Your Order ID: <strong>#{{ order_id }}</strong></p>
+  <br />
+  <a href="{{ url_for('home') }}" class="wishlist-btn-main">
+    Continue Shopping
+  </a>
 </div>
 
 {% endblock %}

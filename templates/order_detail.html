@@ -1,72 +1,57 @@
-{% extends "layout.html" %}
-
-{% block title %}Order Details{% endblock %}
-
-{% block content %}
+{% extends "layout.html" %} {% block title %}Order Details{% endblock %} {%
+block content %}
 
 <div class="order-detail-container">
+  <h1 class="order-title">Order #{{ order_id }}</h1>
 
-<h1 class="order-title">Order #{{ order_id }}</h1>
+  <table class="order-items-table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
 
-<table class="order-items-table">
+    <tbody>
+      {% for item in items %}
 
-<thead>
-<tr>
-<th>Product</th>
-<th>Price</th>
-<th>Quantity</th>
-<th>Total</th>
-</tr>
-</thead>
+      <tr
+        class="clickable-row"
+        data-link="{{ url_for('product_detail', id=item['id']) }}"
+      >
+        <td data-label="Product" class="product-cell">
+          <img
+            src="{{ url_for('static', filename=item['image_url']) }}"
+            class="product-img"
+          />
+          <span>{{ item['name'] }}</span>
+        </td>
 
-<tbody>
+        <td data-label="Price">
+          {% if item['sale_price'] %} {{ rs(item['sale_price']) }} {% else %} {{
+          rs(item['price']) }} {% endif %}
+        </td>
 
+        <td data-label="Quantity">{{ item['quantity'] }}</td>
 
-{% for item in items %}
+        <td data-label="Total">
+          {% if item['sale_price'] %} {{ rs(item['sale_price'] *
+          item['quantity']) }} {% else %} {{ rs(item['price'] *
+          item['quantity']) }} {% endif %}
+        </td>
+      </tr>
 
-<tr  class="clickable-row" data-link="{{ url_for('product_detail', id=item['id']) }}">
+      {% endfor %}
+    </tbody>
+  </table>
 
-    <td data-label="Product" class="product-cell">
-        <img src="{{ url_for('static', filename=item['image_url']) }}" class="product-img" >
-        <span>{{ item['name'] }}</span>
-    </td>
+  <div class="order-total">
+    <h3>Total Paid: {{ rs(grand_total) }}</h3>
+  </div>
 
-    <td data-label="Price">
-        {% if item['sale_price'] %}
-            {{ rs(item['sale_price']) }}
-        {% else %}
-            {{ rs(item['price']) }}
-        {% endif %}
-    </td>
-
-    <td data-label="Quantity">{{ item['quantity'] }}</td>
-
-    <td data-label="Total">
-        {% if item['sale_price'] %}
-            {{ rs(item['sale_price'] * item['quantity']) }}
-        {% else %}
-            {{ rs(item['price'] * item['quantity']) }}
-        {% endif %}
-    </td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
-
-<div class="order-total">
-
-<h3>Total Paid: {{ rs(grand_total) }}</h3>
-
-</div>
-
-<a href="{{ url_for('orders') }}" class="back-btn">
-← Back to Orders
-</a>
-
+  <a href="{{ url_for('orders') }}" class="back-btn"> ← Back to Orders </a>
 </div>
 
 {% endblock %}

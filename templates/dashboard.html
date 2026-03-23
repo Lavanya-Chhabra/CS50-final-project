@@ -1,59 +1,49 @@
-{% extends "layout.html" %}
-
-{% block title %}Dashboard{% endblock %}
-
-{% block content %}
+{% extends "layout.html" %} {% block title %}Dashboard{% endblock %} {% block
+content %}
 
 <div class="dashboard-container">
+  <h1 class="dashboard-title">My Dashboard</h1>
 
-    <h1 class="dashboard-title">My Dashboard</h1>
+  <div class="dashboard-header">
+    <div class="profile-circle">{{ user['name'][0]|upper }}</div>
 
-    <div class="dashboard-header">
-        <div class="profile-circle">
-            {{ user['name'][0]|upper }}
-        </div>
-
-        <div>
-            <h2>{{ user['name'] }}</h2>
-            <p>Welcome back to Evara</p>
-        </div>
+    <div>
+      <h2>{{ user['name'] }}</h2>
+      <p>Welcome back to Evara</p>
     </div>
+  </div>
 
+  <div class="dashboard-grid">
+    <a href="/profile" class="dashboard-card">
+      <i class="fa-solid fa-user"></i>
+      <h3>Edit Profile</h3>
+      <p>Update your personal information</p>
+    </a>
 
-    <div class="dashboard-grid">
+    <a href="/orders" class="dashboard-card">
+      <i class="fa-solid fa-box"></i>
+      <h3>Order History</h3>
+      <p>Track your orders</p>
+    </a>
 
-        <a href="/profile" class="dashboard-card">
-            <i class="fa-solid fa-user"></i>
-            <h3>Edit Profile</h3>
-            <p>Update your personal information</p>
-        </a>
+    <a href="/cart" class="dashboard-card">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <h3>My Cart</h3>
+      <p>Items waiting for checkout</p>
+    </a>
 
-        <a href="/orders" class="dashboard-card">
-            <i class="fa-solid fa-box"></i>
-            <h3>Order History</h3>
-            <p>Track your orders</p>
-        </a>
+    <a href="/wishlist" class="dashboard-card">
+      <i class="fa-solid fa-heart"></i>
+      <h3>Wishlist</h3>
+      <p>Your saved products</p>
+    </a>
 
-        <a href="/cart" class="dashboard-card">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <h3>My Cart</h3>
-            <p>Items waiting for checkout</p>
-        </a>
-
-        <a href="/wishlist" class="dashboard-card">
-            <i class="fa-solid fa-heart"></i>
-            <h3>Wishlist</h3>
-            <p>Your saved products</p>
-        </a>
-
-        <a href="/logout" class="dashboard-card logout-card">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <h3>Logout</h3>
-            <p>Securely sign out</p>
-        </a>
-
-    </div>
-
+    <a href="/logout" class="dashboard-card logout-card">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <h3>Logout</h3>
+      <p>Securely sign out</p>
+    </a>
+  </div>
 </div>
 
 {% endblock %}
